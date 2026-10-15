@@ -1,0 +1,6 @@
+# Local migration material is not part of the public reference.
+/迁移暂存/
+.DS_Store
+Thumbs.db
+*.log
+node_modules/

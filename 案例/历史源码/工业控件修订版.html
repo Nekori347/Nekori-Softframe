@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>通用 UI · 结构与工业表面参考</title>
+<style>
+/* RECONSTRUCTED EXAMPLE. Values below belong to this demo, not frozen design tokens. */
+:root{color-scheme:dark;--base:#101110;--raised:#181a18;--recessed:#1e201d;--line:#4a4d49;--text:#eeeee8;--muted:#b2b7ae;--accent:#dfeb73;--on-accent:#171a10;--control:#30342f;--thumb:#f5f5ef;--track:#747b70;--texture:178,188,166;--danger:#ef857c;--radius:14px;--fast:160ms}
+:root[data-theme=light]{color-scheme:light;--base:#e8e8e2;--raised:#f2f2ec;--recessed:#dcddd6;--line:#b6b8b3;--text:#222720;--muted:#535e51;--accent:#596d20;--on-accent:#fff;--control:#d7dacf;--thumb:#fff;--track:#737c6d;--texture:62,77,53;--danger:#a52924}
+*{box-sizing:border-box}body{margin:0;background:var(--base);color:var(--text);font:16px/1.65 'Sarasa UI SC','Microsoft YaHei',system-ui,sans-serif}button,input,select{font:inherit}button,a,input,summary{touch-action:manipulation}button{cursor:pointer;color:inherit}button:disabled{opacity:.4;cursor:default}a{color:inherit;text-underline-offset:4px}h1,h2,h3,p{margin:0}h1{font-size:clamp(25px,3vw,38px);line-height:1.3}h2{font-size:22px}h3{font-size:17px}code,.value,.mono{font-family:'JetBrains Mono',Consolas,monospace;font-variant-numeric:tabular-nums}.muted,.note{color:var(--muted)}.note{font-size:14px;margin-top:14px}.kicker{font-size:12px;letter-spacing:2px;color:var(--muted)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button{border:1px solid var(--line);border-radius:999px;background:var(--control);padding:9px 19px;min-height:42px;transition:background var(--fast),filter var(--fast)}button:hover{filter:brightness(1.12)}button:active{filter:brightness(.9)}button.primary{background:var(--accent);color:var(--on-accent);border-color:transparent}button.ghost{background:transparent}button.danger{color:var(--danger);border-color:var(--danger);background:transparent}svg.icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.shell{max-width:1200px;margin:32px auto;padding:30px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(125deg,rgba(137,150,126,.13),transparent 40%),var(--base)}header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}header p{max-width:750px;margin-top:16px}.theme-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.theme-controls select{color:var(--text);background:var(--raised);border:1px solid var(--line);border-radius:10px;padding:8px}nav{display:flex;gap:10px 20px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--line);margin-bottom:28px;font-size:14px}main{display:grid;gap:24px}section.panel{background:var(--raised);border:1px solid var(--line);border-radius:var(--radius);padding:26px;min-width:0;scroll-margin-top:18px}.section-heading{display:flex;align-items:center;gap:12px;margin-bottom:18px}.section-heading:before{content:'';width:4px;height:25px;background:var(--accent);flex:none}.section-heading:after{content:'';height:1px;background:var(--line);flex:1}.intro{color:var(--muted);margin-bottom:20px;max-width:850px}.demo-list{display:grid;gap:10px}.setting{display:grid;grid-template-columns:minmax(180px,1fr) minmax(270px,1.2fr);align-items:center;gap:20px;padding:20px 24px;border:1px solid var(--line);border-radius:12px;min-width:0}.setting-label{font-weight:600;overflow-wrap:anywhere}.setting-label small{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:5px}.control{display:flex;align-items:center;gap:18px;min-width:0}.control>input[type=range]{flex:1;min-width:64px}.value{min-width:4.5ch;text-align:right;white-space:nowrap}.unit{font-size:12px;color:var(--muted);padding-left:5px}
+/* C01: visual track is 3px; input hit area is 38px. Thumb is a horizontal 34x14 capsule. */
+input[type=range]{appearance:none;-webkit-appearance:none;width:100%;height:38px;background:transparent;margin:0;cursor:pointer;color:var(--thumb)}input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:var(--track)}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:14px;border-radius:8px;background:var(--thumb);border:1px solid #0002;box-shadow:0 1px 3px #0005;margin-top:-5.5px}input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:var(--track)}input[type=range]::-moz-range-thumb{width:34px;height:14px;border-radius:8px;background:var(--thumb);border:1px solid #0002;box-shadow:0 1px 3px #0005}input[type=range]:focus-visible{outline-offset:1px;border-radius:6px}
+/* Shared shell, no inner input border; arrows are SVG chevrons, not text arrows. */
+.stepper{display:flex;align-items:center;border:1px solid var(--line);background:var(--control);border-radius:12px;padding:5px 6px 5px 12px;flex:none;min-width:112px;gap:4px}.stepper:focus-within{outline:2px solid var(--accent);outline-offset:2px}.stepper input{appearance:textfield;-moz-appearance:textfield;width:4ch;min-width:4ch;padding:0;background:transparent;border:0;color:var(--text);text-align:right;font-family:Consolas,monospace;font-variant-numeric:tabular-nums;outline:0}.stepper input::-webkit-inner-spin-button,.stepper input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.stepper .arrows{display:grid;margin-left:4px}.arrows button{background:transparent;border:0;min-height:23px;height:23px;width:30px;padding:2px;border-radius:5px;display:grid;place-items:center}.arrows svg{width:13px;height:9px}.preset-wrap{min-width:0}.preset-track{position:relative}.ticks{position:absolute;pointer-events:none;inset:15px 17px auto;display:flex;justify-content:space-between}.ticks i{height:9px;width:1px;background:var(--track)}.preset-labels{display:flex;justify-content:space-between;margin:0 0 0;gap:6px}.preset-labels button{border:0;background:transparent;border-radius:6px;min-height:32px;font-size:13px;padding:2px 4px;color:var(--muted)}.preset-labels button[aria-pressed=true]{color:var(--text);font-weight:bold;background:var(--control)}
+/* C06: one SVG terrain master, reused with use. Only decoration is clipped. */
+.industrial{position:relative;isolation:isolate;background:linear-gradient(100deg,rgba(var(--texture),.08),transparent 62%),var(--recessed)}.industrial>.setting-label,.industrial>.control,.industrial>.preset-wrap{position:relative;z-index:1}.decor{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:-1}.hatch{position:absolute;inset:0 auto 0 0;width:90px;background:repeating-linear-gradient(135deg,rgba(var(--texture),.17) 0 1px,transparent 1px 6px);mask-image:linear-gradient(90deg,#000,transparent)}.terrain{position:absolute;left:20px;top:50%;width:510px;height:220px;transform:translateY(-50%);color:rgba(var(--texture),.28);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 65%,transparent)}.dots{position:absolute;inset:0 0 0 48%;background:radial-gradient(circle,rgba(var(--texture),.16) .7px,transparent 1px) 0 0/6px 6px;mask-image:linear-gradient(90deg,transparent,#000)}
+/* C02: one shared track and moving selection surface. Text remains above it. */
+.preset-labels{display:block;position:relative;margin:0 17px;height:34px}.preset-labels button{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}.preset-labels button:nth-child(1){left:0}.preset-labels button:nth-child(2){left:33.3333%}.preset-labels button:nth-child(3){left:66.6667%}.preset-labels button:nth-child(4){left:100%}
+.segmented{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--recessed);border-radius:999px;padding:4px;isolation:isolate;max-width:520px;margin-top:18px}.segmented .selection{position:absolute;left:4px;top:4px;bottom:4px;width:calc((100% - 8px)/3);border-radius:999px;background:var(--thumb);transition:transform 180ms;z-index:-1}.segmented button{background:transparent;border:0;padding:9px 12px;white-space:nowrap;font-size:14px;min-width:0}.segmented button[aria-pressed=true]{color:#20261c}.swatch-control{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px}.swatch-control input{width:48px;height:38px;padding:4px;background:var(--control);border:1px solid var(--line);border-radius:9px;flex:none}
+/* C03: active tab bottom joins the panel; selected line is above its title. */
+.tabs{display:flex;gap:4px;position:relative;z-index:1;padding-left:12px;flex-wrap:wrap}.tabs button{border-radius:12px 12px 0 0;border:1px solid transparent;border-bottom:0;background:transparent;position:relative;padding:16px 20px 10px;margin-bottom:-1px}.tabs button[aria-selected=true]{background:var(--recessed);border-color:var(--line)}.tabs button[aria-selected=true]:before{content:'';position:absolute;top:7px;left:20px;right:20px;height:2px;background:var(--accent)}.tab-content{padding:24px;background:var(--recessed);border:1px solid var(--line);border-radius:12px}.tab-content[hidden]{display:none}details{margin-top:18px}summary{cursor:pointer;display:flex;align-items:center;gap:12px;list-style:none;padding:8px 0}summary::-webkit-details-marker{display:none}summary:after{content:'';width:7px;height:7px;border-right:1.5px solid;border-bottom:1.5px solid;transform:rotate(-45deg);transition:transform var(--fast)}details[open]>summary:after{transform:rotate(45deg)}summary .leader{height:1px;background:var(--line);flex:1}.branches{margin:8px 0 0 9px;padding-left:20px;border-left:1px solid var(--line)}.branch{position:relative;padding:9px 0}.branch:before{content:'';position:absolute;left:-21px;top:22px;width:14px;border-top:1px solid var(--line)}.branch:last-child:after{content:'';position:absolute;left:-22px;top:23px;bottom:0;width:3px;background:var(--recessed)}
+.status-block{padding:20px;border-radius:12px;background:var(--recessed);margin-top:14px}.status-title{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}.capacity{height:16px;position:relative;background:var(--control);border-left:1px solid var(--muted);border-right:1px solid var(--muted);padding:3px}.capacity .fill{height:100%;width:62%;background:#a0ba54}.capacity:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(20% - 1px),var(--base) calc(20% - 1px) 20%)}.progress-track{height:7px;position:relative;background:repeating-linear-gradient(135deg,transparent 0 4px,var(--muted) 4px 5px,transparent 5px 8px);margin:20px 0}.progress-track:before,.progress-track:after{content:'';position:absolute;top:-4px;height:15px;width:1px;background:var(--text)}.progress-track:before{left:0}.progress-track:after{right:0}.progress-fill{height:100%;width:35%;background:var(--text);transition:width 250ms}.step-progress{display:flex;gap:8px;flex-wrap:wrap;list-style:none;padding:0;margin:18px 0 0}.step-progress li{display:flex;gap:10px;align-items:center}.step-progress li:not(:last-child):after{content:'';width:30px;height:1px;background:var(--line)}.step-progress .current{font-weight:bold;color:var(--accent)}.unknown{height:3px;background:var(--control);overflow:hidden;margin:18px 0}.unknown span{display:block;width:24%;height:100%;background:var(--muted);animation:scan 2s linear infinite}@keyframes scan{from{transform:translateX(-100%)}to{transform:translateX(420%)}}
+.button-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.icon-levels{display:flex;gap:32px;flex-wrap:wrap}.icon-sample{display:grid;justify-items:center;gap:14px;min-width:110px}.icon-button{width:44px;height:44px;min-height:44px;padding:10px;display:grid;place-items:center;border-radius:13px}.icon-button.plain{background:transparent;border-color:transparent}.meta{outline:1px solid var(--line);outline-offset:4px;border-radius:50%}.result{min-height:30px;color:var(--muted);margin-top:18px}.grammar{display:grid;gap:12px}.grammar p{padding:14px 18px;border-left:2px solid var(--line);background:var(--recessed)}dialog{color:var(--text);background:var(--raised);border:1px solid var(--line);border-radius:18px;width:min(480px,calc(100vw - 32px));padding:28px;box-shadow:0 24px 80px #0006}dialog::backdrop{background:#0007}dialog h2{margin-bottom:12px}dialog .actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:26px}dialog p{color:var(--muted)}footer{margin-top:28px;color:var(--muted);font-size:13px}
+@media(max-width:720px){.shell{margin:0;padding:18px;border-radius:0;border:0}section.panel{padding:18px}.setting{grid-template-columns:minmax(0,1fr);padding:16px;gap:12px}.tabs button{padding-left:12px;padding-right:12px}.terrain{opacity:.75}.section-heading h2{font-size:19px}.tab-content{padding:18px}.control{gap:12px}.segmented button{padding:9px 4px}.status-block{padding:16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.unknown span{transform:translateX(150%)}}
+
+/* =======================================================================
+ * REFINEMENT v2: semantic control hierarchy, based on user-supplied images.
+ *   Low-emphasis precision editing and high-emphasis meta operations differ.
+ * ======================================================================= */
+:root { --capacity-fill:#b4d744; --control-shadow:0 3px 7px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.22); }
+:root[data-theme=light] {--control-shadow:0 2px 5px rgba(0,0,0,.13), inset 0 1px 0 rgba(255,255,255,.72);}
+
+/* A precision stepper is an unobtrusive numeric readout with tiny integrated
+   chevrons. It must NOT look like a second large control next to its slider. */
+.stepper{
+ min-width:0;width:max-content;height:34px;gap:3px;padding:0 5px 0 9px;
+ background:color-mix(in srgb,var(--control) 14%,transparent);border:1px solid color-mix(in srgb,var(--line) 26%,transparent);border-radius:9px;
+ box-shadow:none;transition:border-color var(--fast),background var(--fast);
+}
+.stepper:hover{background:color-mix(in srgb,var(--control) 32%,transparent);border-color:color-mix(in srgb,var(--line) 55%,transparent)}
+.stepper:focus-within{background:color-mix(in srgb,var(--control) 45%,transparent);border-color:var(--line);outline:1px solid var(--accent);outline-offset:1px}
+.stepper input{font-size:14px;font-family:'JetBrains Mono',Consolas,monospace;font-variant-numeric:tabular-nums;width:3.25ch;min-width:3.25ch;text-align:right;line-height:1.3;}
+.stepper .unit{font-size:11px;padding-left:2px;line-height:1.2;}
+.stepper .arrows{display:grid;grid-template-rows:15px 15px;gap:0;margin-left:3px;align-items:center;}
+.stepper .arrows button{display:grid;place-items:center;min-height:0;width:18px;height:15px;padding:0;border:0;border-radius:3px;background:transparent;color:var(--muted);opacity:.82;box-shadow:none;}
+.stepper .arrows button:disabled{opacity:.24}
+.stepper .arrows button:hover:not(:disabled){filter:none;color:var(--text);background:color-mix(in srgb,var(--text) 7%,transparent);opacity:1}
+.stepper .arrows button svg{width:11px;height:7px}
+/* Keep a stepper-only control aligned with the right-side value column. */
+.control:has(> .stepper:only-child){justify-content:flex-end}
+/* Bare numerical readouts and stepper digits share the same typographic role. */
+.control .value{font-size:14px;line-height:1.3;min-width:4.2ch;}
+.control{gap:9px}
+
+/* Raised capsule selectors: elevation belongs to the FRONT control, not the
+   setting row itself. The body/background must remain comparatively quiet. */
+.select-examples{display:grid;gap:12px;max-width:520px;margin-top:18px}
+.select-line{display:flex;align-items:center;gap:14px;min-width:0}
+.select-line>span:first-child{width:110px;flex:none;font-weight:600;font-size:14px}
+.select-capsule{display:block;position:relative;flex:1;min-width:0}
+.select-capsule select{
+  width:100%;height:42px;padding:8px 42px 8px 18px;border-radius:999px;
+  appearance:none;-webkit-appearance:none;background:#e9e9e7;color:#363936;
+  border:1px solid #d7d7d5;box-shadow:var(--control-shadow);font-size:15px;
+}
+.select-capsule::after{content:'';position:absolute;right:18px;top:50%;margin-top:-3px;border:6px solid transparent;border-top-color:#444845;border-bottom:0;pointer-events:none;}
+.select-capsule select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.segmented{background:#555855;box-shadow:inset 0 1px 3px rgba(0,0,0,.26);border:1px solid rgba(255,255,255,.07)}
+.segmented .selection{background:#e9e9e7;box-shadow:0 2px 5px rgba(0,0,0,.27),inset 0 1px 0 rgba(255,255,255,.9)}
+.segmented button{position:relative;z-index:1;color:#C4C9C2;}
+.segmented button[aria-pressed=true]{color:#333633}
+
+/* High-order meta action: separate OUTER outline + slight gap around the
+   internal raised capsule; no nested clickable buttons. */
+.control-examples{display:grid;gap:24px;margin-top:18px}
+.meta-action-group{display:flex;flex-wrap:wrap;align-items:center;gap:26px 30px;padding:10px 8px;}
+.meta-action-pill{
+ position:relative;display:inline-flex;align-items:center;justify-content:space-between;
+ gap:16px;min-height:44px;min-width:238px;max-width:100%;padding:5px 7px 5px 18px;
+ border:1px solid #a6a8a5;border-radius:999px;background:#e9e9e7;
+ color:#565A57;box-shadow:0 2px 6px #0005,inset 0 1px 0 #fffC;
+ font-size:16px;font-weight:650;
+}
+.meta-action-pill::before{content:'';position:absolute;inset:-5px;border:2px solid #ebebe8;border-radius:999px;pointer-events:none;box-shadow:0 0 0 1px #383b39;}
+.meta-action-pill .meta-leader{position:relative;width:62px;min-width:35px;height:1px;background:#9c9f9d;flex:0 1 62px}
+.meta-action-pill .meta-leader::before,.meta-action-pill .meta-leader::after{content:'';position:absolute;width:3px;height:3px;background:#989c99;border-radius:50%;top:-1px}
+.meta-action-pill .meta-leader::before{left:-2px}.meta-action-pill .meta-leader::after{right:-2px}
+.meta-action-pill .meta-title{white-space:nowrap;flex:none}
+.meta-action-pill .meta-symbol{flex:none;width:31px;height:31px;display:grid;place-items:center;background:#494b48;color:#f1f2ed;border-radius:50%;}
+.meta-action-pill .meta-symbol svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.meta-action-pill:hover:not(:disabled){filter:brightness(1.04)}
+.meta-action-pill:disabled{opacity:.32;filter:grayscale(1);}
+.meta-action-pill:disabled::before{box-shadow:0 0 0 1px #5d625e;}
+.meta-action-status{min-height:22px;font-size:13px;color:var(--muted);}
+
+/* Capacity bars: NOT a segmented rectangle sliced by full-height dividers.
+   The tick marks sit INSIDE the track, with inset top/bottom and inverted
+   dark/light ink according to current fill. Brackets are outside the track. */
+.capacity-hud{width:100%;height:36px;display:block;overflow:visible;color:var(--muted)}
+.capacity-hud .capacity-track{fill:#5c5f5b}
+.capacity-hud .capacity-fill{fill:var(--capacity-fill)}
+.capacity-hud .capacity-brackets{fill:none;stroke:#959d95;stroke-width:1.25;opacity:.85}
+.capacity-hud .capacity-tick{stroke-width:1.5;stroke-linecap:round;}
+.capacity-hud .capacity-tick.in-fill{stroke:#2b321a;opacity:.95}
+.capacity-hud .capacity-tick.outside-fill{stroke:#d3d8cf;opacity:.78}
+.capacity-hud .capacity-endcap{fill:#aab1a8}
+.capacity-demo{padding:14px 18px;background:var(--recessed);border:1px solid var(--line);border-radius:12px;margin-top:10px}
+.capacity-demo .status-title{margin-bottom:6px}
+.capacity-demo .subtle-state{color:var(--muted);font-size:12px}
+@media(max-width:650px){.select-line{flex-wrap:wrap}.select-line>span:first-child{width:auto}.select-capsule{flex-basis:100%}.meta-action-pill{min-width:0;gap:10px}.meta-action-pill .meta-leader{width:35px;flex-basis:35px}.setting .control{gap:8px}.stepper{padding-left:5px}}
+
+</style>
+</head>
+<body>
+<!-- Shared geometry definitions: no raster images or third-party runtime. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+<symbol id="chevron-up" viewBox="0 0 12 8"><path d="M2 6 6 2 10 6" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="chevron-down" viewBox="0 0 12 8"><path d="m2 2 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="settings-icon" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16M8 3v6m8 0v6m-6 0v6"/></symbol>
+<symbol id="terrain-master" viewBox="0 0 510 220"></symbol>
+</defs></svg>
+<div class="shell">
+<header><div><div class="kicker">REFERENCE / RECONSTRUCTED</div><h1>结构先行，材料有序</h1><p class="muted">依据已确认规范重建的交互参考。正文和源码均可独立阅读；这里的教学说明不应移入正式业务界面。浏览器仅模拟材料层次。</p></div><div class="theme-controls"><label for="theme">显示主题</label><select id="theme"><option value="dark">墨色</option><option value="light">纸色</option></select></div></header>
+<nav aria-label="案例目录"><a href="#c01">数值控件</a><a href="#c02">选择与适配</a><a href="#c03">层级连接</a><a href="#c04">容量与进度</a><a href="#c05">命令顺序</a><a href="#c06">材料底纹</a><a href="#c07">图标层级</a><a href="#c09">按钮形态</a><a href="#c08">功能归属</a></nav>
+<main>
+<section class="panel" id="c01"><div class="section-heading"><h2>C01 · 数值输入家族</h2></div><p class="intro">统一母型为细线轨道、横向短胶囊柄和读数。需要精调时，数字与轻量微调符号同体；不得变成第二个大型视觉控件。</p><div class="demo-list">
+<div class="setting industrial"><div class="decor" aria-hidden="true"></div><label class="setting-label" for="opacity">特效不透明度<small>连续数值 · 细步长0.01</small></label><div class="control"><input id="opacity" type="range" min="0" max="1" step=".01" value=".75"><output class="value" for="opacity" id="opacity-value">0.75</output></div></div>
+<div class="setting industrial"><div class="decor" aria-hidden="true"></div><label class="setting-label" for="sensitivity">水平视角灵敏度<small>拖动与精确输入同步</small></label><div class="control"><input id="sensitivity" type="range" min="0" max="100" step="1" value="37"><div class="stepper" data-stepper="sensitivity"><input id="sensitivity-number" type="number" aria-label="灵敏度精确值" min="0" max="100" step="1" value="37"><div class="arrows"><button type="button" data-delta="1" aria-label="增加灵敏度"><svg><use href="#chevron-up"/></svg></button><button type="button" data-delta="-1" aria-label="减少灵敏度"><svg><use href="#chevron-down"/></svg></button></div></div></div></div>
+<div class="setting"><label class="setting-label" for="volume">音量<small>数值步进A · 每步5，轨道保持连续</small></label><div class="control"><input id="volume" type="range" min="0" max="100" step="5" value="60"><output class="value" for="volume" id="volume-value">60</output></div></div>
+<div class="setting"><label class="setting-label" for="quality">画面质量<small>预设档位B · 无数值输入与微调</small></label><div class="preset-wrap"><div class="preset-track"><div class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></div><input id="quality" type="range" min="0" max="3" step="1" value="2" aria-valuetext="高"></div><div class="preset-labels" role="group" aria-label="质量档位"><button data-quality="0" aria-pressed="false">低</button><button data-quality="1" aria-pressed="false">中</button><button data-quality="2" aria-pressed="true">高</button><button data-quality="3" aria-pressed="false">极高</button></div></div></div>
+<div class="setting"><label class="setting-label" for="size-number">图标尺寸<small>仅精调 · 无多余滑条</small></label><div class="control"><div class="stepper" data-stepper="size"><input id="size-number" type="number" aria-label="图标尺寸" min="12" max="64" step="1" value="20"><span class="unit">px</span><div class="arrows"><button data-delta="1" aria-label="增加图标尺寸"><svg><use href="#chevron-up"/></svg></button><button data-delta="-1" aria-label="减少图标尺寸"><svg><use href="#chevron-down"/></svg></button></div></div></div></div>
+</div><p class="note">可用键盘方向键操作。轨道为3px、短胶囊柄为34×14px；精调数字和读数采用同一排版层级，步进箭头不应增加控件重量。狭窄窗口将控制区移至标签下方。</p></section>
+<section class="panel" id="c02"><div class="section-heading"><h2>C02 · 共享轨道与内容适配</h2></div><p class="intro">同一底面承载三个完整选项。选择块移动，组件宽度保持稳定。此控件是选择器示例，不控制上方预览主题。</p><div class="segmented" role="group" aria-label="界面模式"><span class="selection" aria-hidden="true"></span><button aria-pressed="true">跟随系统</button><button aria-pressed="false">浅色</button><button aria-pressed="false">深色</button></div><div class="select-examples" aria-label="胶囊式浮起选择器">
+  <div class="select-line"><span>画面质量</span><label class="select-capsule"><select aria-label="画面质量"><option>极高（默认）</option><option>高</option><option>中</option><option>低</option></select></label></div>
+  <div class="select-line"><span>分辨率</span><label class="select-capsule"><select aria-label="分辨率"><option>1920×1080</option><option>2560×1440</option><option>3840×2160</option></select></label></div>
+</div>
+<div class="swatch-control"><label for="accent">主题强调色</label><input id="accent" type="color" value="#dfeb73"><output class="mono" id="accent-value" for="accent">#DFEB73</output></div><p class="note">色块保留独立最小尺寸，数值完整显示。自定义颜色仅用于本例预览，正式主题仍需校准对比度。</p></section>
+<section class="panel" id="c03"><div class="section-heading"><h2>C03 · 标签与层级连续</h2></div><div class="tabs" role="tablist" aria-label="参数分类"><button role="tab" id="tab-display" aria-controls="panel-display" aria-selected="true">性能与画面</button><button role="tab" id="tab-audio" aria-controls="panel-audio" aria-selected="false" tabindex="-1">声音</button></div><div class="tab-content" role="tabpanel" id="panel-display" aria-labelledby="tab-display"><h3>显示选项</h3><details open><summary>进阶参数<span class="leader" aria-hidden="true"></span></summary><div class="branches"><div class="branch">画面质量 · 高</div><div class="branch">显示模式 · 窗口</div><div class="branch">帧率设置 · 120帧</div></div></details></div><div hidden class="tab-content" role="tabpanel" id="panel-audio" aria-labelledby="tab-audio"><h3>声音选项</h3><details open><summary>音频输出<span class="leader" aria-hidden="true"></span></summary><div class="branches"><div class="branch">输出设备 · 系统默认</div><div class="branch">声道 · 立体声</div></div></details></div><p class="note">选中短线在耳朵内部上方；中性连接线负责层级。Tab可用左右键与Home/End切换。</p></section>
+<section class="panel" id="c04"><div class="section-heading"><h2>C04 · 容量、进度与运行状态</h2></div><div class="status-block"><div class="status-title"><span>设备负载</span><span>适中 · 62%</span></div><svg class="capacity-hud" data-value="62" viewBox="0 0 640 36" preserveAspectRatio="none" role="meter" aria-label="设备负载" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" aria-valuetext="62%，适中"></svg></div><div class="capacity-demo"><div class="status-title"><span>预计显存占用</span><span class="subtle-state">75% · 高</span></div><svg class="capacity-hud" data-value="75" viewBox="0 0 640 36" preserveAspectRatio="none" role="meter" aria-label="预计显存占用" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75" aria-valuetext="75%，高"></svg></div><div class="status-block"><div class="status-title"><span>任务进度（模拟）</span><output id="progress-value">35%</output></div><div class="progress-track" role="progressbar" aria-label="模拟任务进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="35"><div class="progress-fill"></div></div><button id="advance" class="ghost">推进10%</button><ol class="step-progress" aria-label="处理步骤"><li>准备 · 完成</li><li class="current" aria-current="step">处理 · 当前</li><li>结束 · 未开始</li></ol></div><div class="status-block"><span>正在连接 · 进度未知</span><div class="unknown" role="progressbar" aria-label="正在连接，进度未知"><span></span></div></div></section>
+<section class="panel" id="c05"><div class="section-heading"><h2>C05 · 命令顺序与确认</h2></div><p class="intro">自绘横排统一取消在左、主要动作在右。此处仅操作示例状态，不保存或删除任何真实数据。</p><div class="button-row"><button data-dialog="save">保存示例</button><button data-dialog="unsaved">未保存关闭示例</button><button data-dialog="delete" class="danger">永久删除示例</button></div><p id="dialog-result" class="result" role="status">尚未执行示例操作</p></section>
+<section class="panel" id="c06"><div class="section-heading"><h2>C06 · 材料与共享地形母版</h2></div><p class="intro">下方两行复用同一高度场等值线母版及锚点，文字长度改变不会重定位地形。背景可裁切，文字与控制区域保持完整。</p><div class="demo-list"><div class="setting industrial"><div class="decor" aria-hidden="true"></div><span class="setting-label">帧率</span><span class="value">120帧</span></div><div class="setting industrial"><div class="decor" aria-hidden="true"></div><span class="setting-label">队友技能特效不透明度</span><span class="value">1.0</span></div></div><p class="note">左缘排线配重 → 文字侧非对称疏密地形 → 安静中段 → 右端渐变点阵。此为独立生成的参考母版，不是游戏提取素材。原生Mica与Acrylic的合成效果未在此实现。</p></section>
+<section class="panel" id="c07"><div class="section-heading"><h2>C07 · 图标容器层级</h2></div><div class="icon-levels"><div class="icon-sample"><button class="icon-button plain" aria-label="普通操作示例"><svg class="icon"><use href="#settings-icon"/></svg></button><span>普通操作</span></div><div class="icon-sample"><button class="icon-button" aria-label="功能组示例"><svg class="icon"><use href="#settings-icon"/></svg></button><span>功能组</span></div><div class="icon-sample"><button class="icon-button primary" aria-label="强调操作示例"><svg class="icon"><use href="#settings-icon"/></svg></button><span>强调操作</span></div><div class="icon-sample"><button class="icon-button meta" aria-label="元级操作示例"><svg class="icon"><use href="#settings-icon"/></svg></button><span>元级操作</span></div></div><p class="result" id="icon-result" role="status">双层轮廓属于同一个点击区。</p></section>
+<section class="panel" id="c09"><div class="section-heading"><h2>C09 · 胶囊按钮与元级操作</h2></div>
+<p class="intro">普通选择器：浮起的内表面 + 细边线 + 低强度阴影；元级操作：内外两层独立轮廓，中间保留细微空隙。不是把所有按钮都设计成双层。</p>
+<div class="control-examples">
+  <div class="meta-action-group">
+    <button type="button" id="reset-demo" class="meta-action-pill" aria-label="恢复默认示例设置"><span class="meta-leader" aria-hidden="true"></span><span class="meta-title">恢复默认</span><span class="meta-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19.5 12a8 8 0 1 0-2.3 5.7M20 12A8 8 0 0 0 5.2 8"/></svg></span></button>
+    <button type="button" id="reset-no-changes" class="meta-action-pill" disabled aria-label="暂无修改，无需恢复"><span class="meta-leader" aria-hidden="true"></span><span class="meta-title">暂无修改</span><span class="meta-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span></button>
+  </div>
+  <span class="meta-action-status" id="reset-demo-status" role="status">修改上方画面质量后可通过“恢复默认”复位本案例。</span>
+</div>
+</section>
+<section class="panel" id="c08"><div class="section-heading"><h2>C08 · 新功能先归属</h2></div><div class="grammar"><p><strong>新增图标尺寸调整：</strong>归入对象显示参数，复用数值步进器。</p><p><strong>新增网格／列表切换：</strong>归入当前视图的模式选择，不新增两个顶层导航。</p><p><strong>新增批量导出：</strong>放在对象选中后的上下文操作区，不为每张卡片重复堆按钮。</p></div></section>
+</main><footer>控件修订 v2 · 2026-10-15 · 保留无外部依赖的可操作示例；所有修改仅影响当前页面内存状态。</footer>
+</div>
+<dialog id="confirmation" aria-labelledby="dialog-title" aria-describedby="dialog-description"><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="actions"></div></dialog>
+<script>
+'use strict';
+// C01: one numerical state per stepper, with clamped/quantized commit and editable transient blank.
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function syncReadout(id,digits=0){const input=$('#'+id),output=$('#'+id+'-value');input.addEventListener('input',()=>output.value=Number(input.value).toFixed(digits));}
+syncReadout('opacity',2);syncReadout('volume');
+$$('[data-stepper]').forEach(shell=>{const n=shell.querySelector('input'),range=$('#'+shell.dataset.stepper);let current=Number(n.value);const min=Number(n.min),max=Number(n.max),step=Number(n.step);
+ const set=value=>{current=Math.max(min,Math.min(max,min+Math.round((value-min)/step)*step));n.value=String(current);if(range)range.value=String(current);shell.querySelector('[data-delta="1"]').disabled=current>=max;shell.querySelector('[data-delta="-1"]').disabled=current<=min;};
+ n.addEventListener('input',()=>{if(n.value!==''&&n.validity.valid){current=Number(n.value);if(range)range.value=n.value;}});
+ const commit=()=>set(n.value===''||!Number.isFinite(n.valueAsNumber)?current:n.valueAsNumber);
+ n.addEventListener('change',commit);n.addEventListener('blur',commit);n.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();commit();}if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();set(current+(e.key==='ArrowUp'?step:-step));}});
+ shell.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>set(current+Number(b.dataset.delta)*step)));
+ if(range)range.addEventListener('input',()=>set(Number(range.value)));set(current);
+});
+const qualities=['低','中','高','极高'];function setQuality(i){$('#quality').value=i;$('#quality').setAttribute('aria-valuetext',qualities[i]);$$('[data-quality]').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.quality)===i));}$('#quality').addEventListener('input',e=>setQuality(Number(e.target.value)));$$('[data-quality]').forEach(b=>b.addEventListener('click',()=>setQuality(Number(b.dataset.quality))));
+// C02: no separate button borders. Selection translates inside the common track.
+$$('.segmented button').forEach((b,i)=>b.addEventListener('click',()=>{$('.selection').style.transform=`translateX(${i*100}%)`;$$('.segmented button').forEach(x=>x.setAttribute('aria-pressed',x===b));}));
+$('#theme').addEventListener('change',e=>{document.documentElement.dataset.theme=e.target.value;document.documentElement.style.removeProperty('--accent');document.documentElement.style.removeProperty('--on-accent');const c=e.target.value==='light'?'#596d20':'#dfeb73';$('#accent').value=c;$('#accent-value').value=c.toUpperCase();});
+$('#accent').addEventListener('input',e=>{const c=e.target.value;document.documentElement.style.setProperty('--accent',c);const rgb=[1,3,5].map(i=>parseInt(c.slice(i,i+2),16)/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);const lum=rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722;document.documentElement.style.setProperty('--on-accent',lum>.179?'#111':'#fff');$('#accent-value').value=c.toUpperCase();});
+// C03: keyboard roving focus and stable associated panels.
+const tabs=$$('[role=tab]');function selectTab(b){tabs.forEach(x=>{const active=x===b;x.setAttribute('aria-selected',active);x.tabIndex=active?0:-1;$('#'+x.getAttribute('aria-controls')).hidden=!active;});}
+tabs.forEach((b,i)=>{b.addEventListener('click',()=>selectTab(b));b.addEventListener('keydown',e=>{let j;if(e.key==='ArrowRight')j=(i+1)%tabs.length;if(e.key==='ArrowLeft')j=(i+tabs.length-1)%tabs.length;if(e.key==='Home')j=0;if(e.key==='End')j=tabs.length-1;if(j!==undefined){e.preventDefault();selectTab(tabs[j]);tabs[j].focus();}});});
+// C04: example state only. Unknown progress intentionally has no aria-valuenow.
+let progress=35;$('#advance').addEventListener('click',()=>{progress=Math.min(100,progress+10);$('.progress-fill').style.width=progress+'%';$('.progress-track').setAttribute('aria-valuenow',progress);$('#progress-value').value=progress+'%';if(progress===100){$('#advance').disabled=true;$('#advance').textContent='已完成';$('.step-progress').innerHTML='<li>准备 · 完成</li><li>处理 · 完成</li><li>结束 · 完成</li>';}});
+// C05: safe leading action; explicit dangerous activation only. Native dialog handles modal focus.
+const dialog=$('#confirmation');let opener=null;
+const configs={save:{title:'保存修改？',description:'此示例仅记录选择，不写入文件。',actions:[['取消','cancel'],['保存','save','primary']]},unsaved:{title:'关闭未保存的内容？',description:'选择保存、放弃修改，或取消关闭。仅模拟行为。',actions:[['取消','cancel'],['不保存','discard','danger'],['保存','save','primary']]},delete:{title:'永久删除12个文件？',description:'真实产品应说明无法恢复及影响范围。本页不会删除文件。',actions:[['取消','cancel'],['永久删除','delete','danger']]}};
+$$('[data-dialog]').forEach(b=>b.addEventListener('click',()=>{opener=b;const c=configs[b.dataset.dialog];$('#dialog-title').textContent=c.title;$('#dialog-description').textContent=c.description;$('.actions').replaceChildren();c.actions.forEach(([text,value,cls])=>{const button=document.createElement('button');button.textContent=text;button.className=cls||'ghost';button.addEventListener('click',()=>{dialog.returnValue=value;dialog.close(value);});$('.actions').append(button);});dialog.returnValue='cancel';dialog.showModal();$('.actions button').focus();}));
+dialog.addEventListener('cancel',()=>dialog.returnValue='cancel');dialog.addEventListener('close',()=>{const messages={cancel:'已取消，保留当前内容。',save:'示例：已选择保存。',discard:'示例：已选择不保存。',delete:'示例：已明确选择永久删除；没有实际删除。'};$('#dialog-result').textContent=messages[dialog.returnValue]||messages.cancel;opener?.focus();});
+$$('.icon-levels button').forEach(b=>b.addEventListener('click',()=>$('#icon-result').textContent='已触发：'+b.getAttribute('aria-label')));
+// C06: deterministic height field -> contour segments using triangle interpolation.
+// Broad shallow basin is near the title-side region, offset from text center. One master for all rows.
+function height(x,y){const dx=(x-145)/130,dy=(y-94)/85;const r=dx*dx+dy*dy;return .30*r+.11*Math.sin(x/39+y/51)+.07*Math.cos(x/19-y/27)+.035*Math.sin(x/9+y/17)+.12*Math.exp(-((x-320)**2/6500+(y-150)**2/1800));}
+function terrain(){const ns='http://www.w3.org/2000/svg',master=$('#terrain-master');let count=0;for(let level=.18,index=0;level<3.7;level+=.15,index++){let d='';for(let y=0;y<220;y+=5){for(let x=0;x<510;x+=5){const a=[x,y,height(x,y)],b=[x+5,y,height(x+5,y)],c=[x+5,y+5,height(x+5,y+5)],f=[x,y+5,height(x,y+5)];for(const tri of [[a,b,c],[a,c,f]]){const pts=[];for(let edge=0;edge<3;edge++){const u=tri[edge],v=tri[(edge+1)%3];if((u[2]<level)!==(v[2]<level)){const t=(level-u[2])/(v[2]-u[2]);pts.push([u[0]+(v[0]-u[0])*t,u[1]+(v[1]-u[1])*t]);}}if(pts.length===2){d+=`M${pts[0][0].toFixed(2)},${pts[0][1].toFixed(2)}L${pts[1][0].toFixed(2)},${pts[1][1].toFixed(2)}`;count++;}}}}const path=document.createElementNS(ns,'path');path.setAttribute('d',d);path.setAttribute('fill','none');path.setAttribute('stroke','currentColor');path.setAttribute('stroke-width',index%5===0?'1.1':'.65');path.setAttribute('stroke-linecap','round');master.append(path);}master.dataset.segments=count;}
+// Capacity: geometry is authored inside a 640x36 viewBox, with padded ticks
+// and paired external brackets; there is no full-height segment clipping.
+function buildCapacity(el){
+ const ns='http://www.w3.org/2000/svg', v=Math.max(0,Math.min(100,Number(el.dataset.value)||0));
+ const make=(tag,attr,parent=el)=>{const node=document.createElementNS(ns,tag);for(const [k,val] of Object.entries(attr))node.setAttribute(k,String(val));parent.append(node);return node;};
+ const x=16,y=12,w=608,h=13;
+ make('path',{d:'M12 7H7V30H12 M628 7H633V30H628',class:'capacity-brackets'});
+ make('line',{x1:7,y1:18,x2:12,y2:18,class:'capacity-brackets'});
+ make('line',{x1:628,y1:18,x2:633,y2:18,class:'capacity-brackets'});
+ make('rect',{x,y,width:w,height:h,rx:1,class:'capacity-track'});
+ make('rect',{x,y,width:w*v/100,height:h,rx:1,class:'capacity-fill'});
+ for(let i=1;i<5;i++){
+   const pos=x+w*i/5,lit=(i*20)>v;
+   make('line',{x1:pos,y1:y+3,x2:pos,y2:y+h-3,class:'capacity-tick '+(lit?'outside-fill':'in-fill')});
+ }
+}
+document.querySelectorAll('.capacity-hud').forEach(buildCapacity);
+$('#reset-demo').addEventListener('click',()=>{
+ const q=$('#quality');setQuality(2);
+ $('#reset-demo-status').textContent='演示档位已恢复为“高”；未修改系统或本地文件。';
+});
+
+terrain();$$('.decor').forEach(el=>{el.innerHTML='<span class="hatch"></span><svg class="terrain" viewBox="0 0 510 220"><use href="#terrain-master"/></svg><span class="dots"></span>';});
+</script>
+</body>
+</html>

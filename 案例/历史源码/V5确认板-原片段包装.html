@@ -1,0 +1,576 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>收到的V5参考板片段 · 历史源码</title></head><body style="margin:0;padding:20px;background:#272934;color:#eee;font-family:system-ui,sans-serif"><aside style="max-width:1100px;margin:0 auto 20px;line-height:1.7">历史源码片段的独立打开包装。下方代码原样提取，未按现行规则补写。已知局限：平滑曲线不是合格地形；排序仅有视觉提示；Tab仅切换样式；模式选中样式需核对。以文字规范为准。</aside>
+<div id="efv5" class="w-full">
+<style>
+#efv5{
+  --bg:#151815;
+  --panel:#202420;
+  --line:#434a42;
+  --line2:#5a6059;
+  --txt:#eef0ea;
+  --muted:#a6ada3;
+  --paper:#ebeae7;
+  --green:#b4d744;
+  --yellow:#d9cf49;
+  --orange:#d99a4a;
+  --red:#d96a58;
+  font:13px/1.45 system-ui,"Microsoft YaHei",sans-serif;
+  color:var(--txt);
+  background:var(--bg);
+  border:1px solid #353b35;
+  border-radius:14px;
+  padding:clamp(12px,2.6vw,22px);
+}
+#efv5 *{box-sizing:border-box}
+#efv5 button,#efv5 select{font:inherit}
+#efv5 button{cursor:pointer}
+#efv5 .panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:14px;
+  margin-bottom:12px;
+}
+#efv5 .title{
+  display:flex;align-items:center;gap:10px;
+  margin:2px 0 12px;
+  font-weight:700;font-size:14px;
+}
+#efv5 .title::before{
+  content:"";width:3px;height:19px;background:var(--green);flex:none;
+}
+#efv5 .title::after{
+  content:"";height:1px;background:#444942;flex:1;
+}
+#efv5 .sub{font-size:11px;color:var(--muted)}
+#efv5 .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#efv5 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#efv5 .grid3{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+#efv5 .card{
+  border:1px solid #484f47;
+  border-radius:11px;
+  padding:12px;
+  background:#1d211d;
+}
+#efv5 .caption{margin-top:8px;font-size:11px;color:#a4aba2}
+#efv5 .btns{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+#efv5 .mini{
+  border:1px solid #535b53;background:#2a302a;color:#d9ddd7;
+  border-radius:7px;padding:5px 9px;font-size:11px;
+}
+#efv5 .mini.active{border-color:var(--green);color:#f6f7f1}
+#efv5 .status{font-size:11px;color:#aab0a7;margin-top:6px}
+#efv5 .meterText{font:13px Consolas,monospace}
+#efv5 .sortHint{font-size:11px;color:#99a294}
+
+/* C09 */
+#efv5 .metaWrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center;padding:10px 4px}
+#efv5 .metaBtn{
+  position:relative;
+  min-width:198px;height:50px;
+  border-radius:999px;
+  display:inline-flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:6px 9px 6px 13px;
+  font-size:15px;font-weight:650;
+  white-space:nowrap;
+}
+#efv5 .metaBtn .lead{
+  width:34px;height:1px;background:currentColor;opacity:.48;position:relative;flex:none;
+}
+#efv5 .metaBtn .lead::before,
+#efv5 .metaBtn .lead::after{
+  content:"";position:absolute;top:-1px;width:3px;height:3px;border-radius:50%;background:currentColor;
+}
+#efv5 .metaBtn .lead::before{left:0}
+#efv5 .metaBtn .lead::after{right:0}
+#efv5 .metaBtn .sig{
+  width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;flex:none;
+}
+#efv5 .metaBtn .sig svg{width:24px;height:24px}
+#efv5 .metaBtn.active{
+  color:#555954;background:var(--paper);
+  border:1px solid #afb2ab;
+  box-shadow:0 1px 2px #0003;
+}
+#efv5 .metaBtn.active::before{
+  content:"";position:absolute;inset:-5px;border:2px solid #ecebe8;border-radius:999px;
+  box-shadow:0 0 0 .6px #737972;pointer-events:none;
+}
+#efv5 .metaBtn.active .sig{
+  background:#4b4f4a;color:#f1f1ee;
+}
+#efv5 .metaBtn.active .topo{
+  position:absolute;right:40px;top:4px;width:92px;height:40px;opacity:.12;pointer-events:none;
+}
+#efv5 .metaBtn.inactive{
+  color:#697068;
+  background:transparent;
+  border:2px solid #58605a;
+  box-shadow:none;
+}
+#efv5 .metaBtn.inactive::before{display:none}
+#efv5 .metaBtn.inactive .sig{
+  background:transparent;color:#697068;
+  border:2px solid #58605a;
+}
+#efv5 .metaBtn.inactive .topo{display:none}
+
+/* topo */
+#efv5 .topo use{stroke:#7b8279}
+
+/* icon+text pill buttons */
+#efv5 .capsuleRow{
+  display:flex;flex-wrap:wrap;gap:10px;
+  padding:8px 0 2px;
+}
+#efv5 .capsuleBtn{
+  min-width:120px;height:44px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:0 16px;
+  border:2px solid #5a6059;
+  background:#2b2f2b;
+  color:#8d938c;
+  font-size:14px;font-weight:650;
+}
+#efv5 .capsuleBtn .ico{
+  width:22px;height:22px;display:grid;place-items:center;flex:none;
+}
+#efv5 .capsuleBtn .ico svg{width:22px;height:22px}
+#efv5 .capsuleBtn.selected{
+  background:var(--paper);
+  color:#4b4f49;
+  border-color:#d3d4cf;
+  box-shadow:0 1px 2px #0002;
+}
+#efv5 .capsuleBtn.accent .ico{
+  color:var(--green);
+}
+#efv5 .capsuleBtn.selected .ico{
+  color:#5c615b;
+}
+#efv5 .capsuleBtn.slim{
+  min-width:96px;height:38px;padding:0 14px;font-size:13px;
+}
+
+/* tabs */
+#efv5 .tabbar{
+  border:1px solid #454c45;background:#1d211d;border-radius:15px;
+  padding:12px 14px 14px;
+}
+#efv5 .tabTop{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;
+}
+#efv5 .tabTop .brand{
+  display:flex;align-items:center;gap:9px;font-weight:700
+}
+#efv5 .themeLine{
+  flex:1;height:3px;background:linear-gradient(90deg,var(--green),#8fae2f);
+  border-radius:99px;position:relative;
+}
+#efv5 .themeLine.sortable::after{
+  content:"⋮⋮";position:absolute;right:10px;top:-10px;font-size:12px;color:#d5dccd;letter-spacing:-1px;
+  opacity:.75;
+}
+#efv5 .tabs{
+  display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;
+}
+#efv5 .earTab{
+  position:relative;
+  min-width:118px;height:54px;
+  padding:10px 14px 8px;
+  border-radius:16px 16px 0 0;
+  background:transparent;
+  border:1px solid transparent;
+  color:#bac0b7;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:4px;
+}
+#efv5 .earTab .dragline{
+  width:48px;height:3px;border-radius:99px;background:#70776e;opacity:.45;
+}
+#efv5 .earTab.sortable .dragline{
+  background:linear-gradient(90deg,#d8ddd3,#8d938b);
+  opacity:.85;
+}
+#efv5 .earTab .main{
+  display:flex;align-items:center;gap:8px;font-weight:650
+}
+#efv5 .earTab .main svg{width:17px;height:17px;flex:none}
+#efv5 .earTab.active{
+  background:#2b302b;
+  color:#f0f1ec;
+  border-color:#4a5149;
+}
+#efv5 .earTab.active::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:2px;background:#2b302b;
+}
+#efv5 .earTab.active .dragline{
+  background:var(--green);opacity:1;
+}
+#efv5 .tabContent{
+  border-top:1px solid #434942;
+  min-height:74px;
+  padding:14px 2px 0;
+  color:#cfd4cb;
+}
+
+/* folder rows */
+#efv5 .folder{
+  border:1px solid #434a43;border-radius:11px;overflow:hidden;
+}
+#efv5 .frow{
+  display:flex;align-items:center;gap:8px;
+  min-height:41px;
+  padding:7px 12px;
+  background:#292d29;
+}
+#efv5 .frow + .frow{border-top:1px solid #3b423b}
+#efv5 .frow.child{padding-left:22px;background:#222622}
+#efv5 .frow.selected{background:#323931}
+#efv5 .frow .innerAccent{
+  width:3px;height:23px;border-radius:2px;background:transparent;flex:none;
+}
+#efv5 .frow.selected .innerAccent{background:var(--green)}
+#efv5 .frow .logo{
+  width:24px;height:24px;border-radius:6px;background:#4d574d;
+  display:grid;place-items:center;flex:none;font-size:11px;font-weight:700;color:#edf1e8;
+}
+#efv5 .frow.child .logo{width:21px;height:21px}
+#efv5 .frow .name{flex:1;min-width:0;overflow-wrap:anywhere}
+#efv5 .frow .count{font:12px Consolas,monospace;color:#a6b29f}
+#efv5 .frow .fold{
+  width:24px;height:24px;border:0;background:none;color:#d0d6cd;display:grid;place-items:center;padding:0
+}
+#efv5 .frow .fold svg{width:14px;height:14px}
+#efv5 .frow .grip{
+  display:grid;grid-template-columns:repeat(2,3px);gap:3px;padding:3px;opacity:.48;cursor:grab;flex:none;
+}
+#efv5 .frow .grip i{
+  width:3px;height:3px;border-radius:50%;background:#d0d5cd;
+}
+#efv5 .frow .grip:hover{opacity:1}
+
+/* responsive */
+@media(max-width:640px){
+  #efv5 .grid2,#efv5 .grid3{grid-template-columns:1fr}
+  #efv5 .capsuleRow{gap:8px}
+  #efv5 .capsuleBtn{min-width:0}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="efv5-topo" viewBox="0 0 100 50">
+      <g fill="none" stroke-width=".85">
+        <path d="M-3 51C16 30 10 0 30 0S54 20 65 10S89 0 103 11"/>
+        <path d="M10 56C28 40 19 10 39 10S62 28 72 19S94 12 108 22"/>
+        <path d="M23 62C42 46 27 20 47 18S69 35 79 28S99 21 114 31"/>
+        <path d="M37 69C56 53 39 30 57 27S76 42 87 36S106 30 121 41"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="panel">
+  <div class="title">C04 · 更紧凑的容量条端点</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="row" style="margin-bottom:8px">
+        <strong>设备负载</strong>
+        <span id="efv5-meterLabel" class="meterText" style="color:var(--green)">62%</span>
+      </div>
+
+      <svg id="efv5-meter" width="100%" height="42" viewBox="0 0 620 42" preserveAspectRatio="none" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62">
+        <!-- left compact cap -->
+        <g stroke="#adb5aa" fill="none" stroke-width="1.4" stroke-linecap="square">
+          <path d="M10 15H14M10 27H14M19 13H15V29H19"/>
+          <path d="M610 15H606M610 27H606M601 13H605V29H601"/>
+        </g>
+
+        <rect x="23" y="16" width="574" height="10" fill="#555b55"/>
+        <rect id="efv5-fill" x="23" y="16" width="355.88" height="10" fill="#b4d744"/>
+        <g id="efv5-ticks"></g>
+      </svg>
+
+      <div class="btns">
+        <button class="mini" data-v="20">20%</button>
+        <button class="mini active" data-v="62">62%</button>
+        <button class="mini" data-v="83">83%</button>
+        <button class="mini" data-v="97">97%</button>
+      </div>
+      <div class="caption">左端与右端都采用更紧凑的“短横 + 半方框”结构，贴近条体但保持独立。</div>
+    </div>
+
+    <div class="card">
+      <div class="small" style="font-weight:650;margin-bottom:8px">风险映射方向</div>
+      <div class="btns" style="margin-top:0">
+        <button class="mini active" data-rule="high">高值 → 高风险</button>
+        <button class="mini" data-rule="low">低值 → 高风险</button>
+      </div>
+      <div class="caption" style="margin-top:12px">
+        这里保留“颜色不固定”的语义。  
+        同样是 20%、62%、83%，在不同业务中，绿色可能对应高值，也可能对应低值。
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="title">C09 · 元级按钮与透明失效态</div>
+  <div class="metaWrap">
+    <button id="efv5-reset" class="metaBtn active" type="button">
+      <span class="lead"></span>
+      <span style="z-index:1">恢复默认</span>
+      <svg class="topo" viewBox="0 0 100 50"><use href="#efv5-topo"/></svg>
+      <span class="sig" aria-hidden="true">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M14 3.3A10.7 10.7 0 0 1 24.7 14A10.7 10.7 0 0 1 21.6 21.4" stroke="currentColor" stroke-width="4.1" stroke-linecap="butt"/>
+          <path d="M14 24.7A10.7 10.7 0 0 1 3.3 14A10.7 10.7 0 0 1 6.4 6.6" stroke="currentColor" stroke-width="4.1" stroke-linecap="butt"/>
+        </svg>
+      </span>
+    </button>
+
+    <button class="metaBtn inactive" type="button" disabled>
+      <span class="lead"></span>
+      <span>暂无修改</span>
+      <span class="sig" aria-hidden="true">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path d="M6 14.5 11.3 19.8 22 9.1" stroke="currentColor" stroke-width="4.1" stroke-linecap="square" stroke-linejoin="miter"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div class="caption">
+    右侧“暂无修改”现在是**透明背景**，不是黑色底；之所以看起来深，是因为下方父级背景本来就是深色。
+  </div>
+</div>
+
+<div class="panel">
+  <div class="title">C11 · 图标 + 文字 + 胶囊按钮</div>
+  <div class="capsuleRow">
+    <button class="capsuleBtn accent" type="button">
+      <span class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 5h8l2 3h8v11H3z"/><path d="M3 3h8l2 3H3z"/>
+        </svg>
+      </span>
+      <span>帝江号精选</span>
+    </button>
+
+    <button class="capsuleBtn" type="button">
+      <span class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4 7h7l2 3h7v7H4z"/><path d="M6 8h4l2 3H8z"/>
+        </svg>
+      </span>
+      <span>源石交易所</span>
+    </button>
+
+    <button class="capsuleBtn" type="button">
+      <span class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3 21 8v8l-9 5-9-5V8z"/>
+        </svg>
+      </span>
+      <span>组合包</span>
+    </button>
+
+    <button class="capsuleBtn selected" type="button">
+      <span class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 4h12v4H6zM4 10h16v10H4z"/>
+        </svg>
+      </span>
+      <span>信用交易所</span>
+    </button>
+  </div>
+  <div class="caption">这里补的是你给的采购中心类型：图标、文字、统一胶囊轮廓、选中态浅色实体，未选中态深色线框实体。</div>
+</div>
+
+<div class="panel">
+  <div class="title">C12 · 标签页耳朵（可带图标 / 可排序）</div>
+  <div class="tabbar">
+    <div class="tabTop">
+      <div class="brand">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#eef0ea"><path d="M4 5h16v14H4z"/><path d="M7 2h10v4H7z" fill="#b4d744"/></svg>
+        <span>COMM Desktop</span>
+      </div>
+      <div class="themeLine sortable" title="装饰线兼作拖动反馈"></div>
+    </div>
+
+    <div class="tabs">
+      <button class="earTab active sortable" type="button">
+        <span class="dragline"></span>
+        <span class="main">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16v14H4z"/><path d="M7 8h4v3H7zM13 8h4v3h-4zM7 13h10v3H7z"/></svg>
+          <span>总览</span>
+        </span>
+      </button>
+
+      <button class="earTab" type="button">
+        <span class="dragline"></span>
+        <span class="main">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h7l2 3h9v11H3z"/><path d="M3 3h7l2 3H3z"/></svg>
+          <span>VGen</span>
+        </span>
+      </button>
+
+      <button class="earTab sortable" type="button">
+        <span class="dragline"></span>
+        <span class="main">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 21 8v8l-9 5-9-5V8z"/></svg>
+          <span>平台 2</span>
+        </span>
+      </button>
+
+      <button class="earTab" type="button">
+        <span class="dragline"></span>
+        <span class="main">
+          <span>平台 3</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="tabContent">
+      当前工作区内容。  
+      标签页前面可选带 icon；若标签支持拖动排序，则上方装饰线本身强化为拖动反馈，而不是额外再塞一个独立拖动柄。
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="title">C10 · 文件夹 / 节点条补正</div>
+  <div class="folder">
+    <div class="frow selected">
+      <span class="innerAccent"></span>
+      <span class="logo">F</span>
+      <span class="name" style="font-weight:650">角色文件夹</span>
+      <span class="count">78</span>
+      <button class="fold" id="efv5-fold" type="button" aria-expanded="true">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 5 4 4 4-4"/></svg>
+      </button>
+    </div>
+    <div id="efv5-children">
+      <div class="frow child selected">
+        <span class="innerAccent"></span>
+        <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="logo" style="background:#496056">P</span>
+        <span class="name">动画参考及差分素材整理</span>
+        <span class="count">42</span>
+      </div>
+      <div class="frow child">
+        <span class="innerAccent"></span>
+        <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="logo" style="background:#5c535d">N</span>
+        <span class="name">项目归档</span>
+        <span class="count">36</span>
+      </div>
+    </div>
+  </div>
+  <div class="caption">竖向装饰线已经改为条目内部内容的一部分，而不是贴在容器最左边缘。</div>
+</div>
+
+<div id="efv5-status" class="status">此确认板只改变演示状态，不影响任何真实设置。</div>
+
+<script>
+(()=>{
+  const root=document.getElementById('efv5');
+  if(!root || root.dataset.ready) return;
+  root.dataset.ready='1';
+
+  const $ = s => root.querySelector(s);
+  const $$ = s => Array.from(root.querySelectorAll(s));
+
+  // meter
+  let meterValue = 62;
+  let meterRule = 'high';
+
+  function meterColor(v, rule){
+    const risk = rule === 'high' ? v : 100 - v;
+    if(risk <= 65) return '#b4d744';
+    if(risk <= 82) return '#d9cf49';
+    if(risk <= 93) return '#d99a4a';
+    return '#d96a58';
+  }
+
+  function drawMeter(){
+    const fill = $('#efv5-fill');
+    const ticks = $('#efv5-ticks');
+    const label = $('#efv5-meterLabel');
+    const color = meterColor(meterValue, meterRule);
+
+    fill.setAttribute('width', String(574 * meterValue / 100));
+    fill.setAttribute('fill', color);
+    label.textContent = meterValue + '%';
+    label.style.color = color;
+    $('#efv5-meter').setAttribute('aria-valuenow', String(meterValue));
+
+    ticks.replaceChildren();
+    for(let i=1;i<=4;i++){
+      const x = 23 + i * (574/5);
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x);
+      line.setAttribute('x2', x);
+      line.setAttribute('y1', 18);
+      line.setAttribute('y2', 24);
+      line.setAttribute('stroke', i*20 <= meterValue ? '#333a2e' : '#cbd1c8');
+      line.setAttribute('stroke-width', '1.8');
+      ticks.append(line);
+    }
+
+    $$('[data-v]').forEach(b=>b.classList.toggle('active', Number(b.dataset.v)===meterValue));
+    $$('[data-rule]').forEach(b=>b.classList.toggle('active', b.dataset.rule===meterRule));
+  }
+
+  $$('[data-v]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      meterValue = Number(b.dataset.v);
+      drawMeter();
+    });
+  });
+
+  $$('[data-rule]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      meterRule = b.dataset.rule;
+      drawMeter();
+    });
+  });
+
+  drawMeter();
+
+  // fold
+  const fold = $('#efv5-fold');
+  const children = $('#efv5-children');
+  fold.addEventListener('click', ()=>{
+    children.hidden = !children.hidden;
+    fold.setAttribute('aria-expanded', String(!children.hidden));
+    fold.innerHTML = children.hidden
+      ? '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m5 3 4 4-4 4"/></svg>'
+      : '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m3 5 4 4 4-4"/></svg>';
+  });
+
+  // tab active
+  $$('.earTab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      $$('.earTab').forEach(t=>t.classList.toggle('active', t===tab));
+    });
+  });
+
+  // segmented buttons
+  $$('.segtrack button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      $$('.segtrack button').forEach(b=>b.classList.toggle('selected', b===btn));
+    });
+  });
+
+  // reset just restore demo states
+  $('#efv5-reset').addEventListener('click', ()=>{
+    meterValue = 62;
+    meterRule = 'high';
+    drawMeter();
+    $$('.earTab').forEach((t,i)=>t.classList.toggle('active', i===0));
+    $('#efv5-status').textContent = '已恢复确认板的默认演示状态。';
+  });
+})();
+</script>
+</div>
+</body></html>
